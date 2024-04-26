@@ -74,7 +74,6 @@ PImage retrato;
   endShape();
   
   //cuello chaqueta 2
-  //fill(#1A0000);
   fill(#0d0301);
   beginShape();
   vertex(290,320);
