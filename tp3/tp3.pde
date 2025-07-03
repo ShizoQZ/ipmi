@@ -6,6 +6,7 @@ int color1, color2, cambioColor;
 float mouseXInicial = 0;
 float desplazamientoTotal = 0;
 float desplazamientoBase = 25;
+float espacioGris = 2;
 boolean mousePresionado = false;
 
 void setup() {
@@ -16,15 +17,16 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(190);
+  noStroke();
 
   if (mousePresionado) {
     desplazamientoTotal += (mouseX - mouseXInicial) / 4;
     mouseXInicial = mouseX;
   }
   float desplazamientoMap = map(desplazamientoTotal, 0, width, -cantX * (400 / cantX) / 3, cantX * (400 / cantX) / 3);
- 
-  cuadrados(400 / cantX, 400 / cantY, desplazamientoMap + desplazamientoBase);
+
+  cuadrados(400 / cantX, 395 / cantY, desplazamientoMap + desplazamientoBase);
   image(img, 0, 0, 400, 400);
 }
 
@@ -40,6 +42,7 @@ color obtenerColor(int i, int j) {
 void cuadrados(float modX, float modY, float desplazamiento) {
   for (int j = 0; j < cantY; j++) {
     float desplazamientoFila;
+    float espacio = j * (modY + espacioGris); 
 
     if (j % 2 == 0) {
       desplazamientoFila = desplazamiento;
@@ -49,13 +52,13 @@ void cuadrados(float modX, float modY, float desplazamiento) {
 
     for (int i = -cantX; i < 400 / modX + cantX; i++) {
       fill(obtenerColor(i, j));
-      rect(i * modX + 200 + desplazamientoFila, j * modY, modX, modY);
+      rect(i * modX + 200 + desplazamientoFila, espacio, modX, modY);
     }
   }
 }
 
 void keyPressed() {
-  
+
   if (key == 'e') {
     cambioColor = color1;
     color1 = color2;
@@ -65,7 +68,7 @@ void keyPressed() {
     desplazamientoTotal = 0;
     color1 = color(#FFFF00);
     color2 = color(0);
-  }  
+  }
 }
 
 void mousePressed() {
